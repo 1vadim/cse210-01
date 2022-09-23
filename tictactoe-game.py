@@ -4,8 +4,9 @@ Author: Vadym Chemariev
 '''
 
 def main():
-    player = next_player("")
     board = create_board()
+    player = next_player("")
+    
     while not (has_winner(board) or is_a_draw(board)):
         display_board(board)
         make_move(player, board)
@@ -18,6 +19,12 @@ def create_board():
     for square in range(9):
         board.append(square + 1)
     return board
+
+def next_player(current):
+    if current == "" or current == "o":
+        return "x"
+    elif current == "x":
+        return "o"
 
 def display_board(board):
     print()
@@ -49,11 +56,7 @@ def make_move(player, board):
         square = int(input(f"{player}'s turn to choose a position (1-9): "))
     else: board[square - 1] = player
 
-def next_player(current):
-    if current == "" or current == "o":
-        return "x"
-    elif current == "x":
-        return "o"
+
 
 if __name__ == "__main__":
     main()
