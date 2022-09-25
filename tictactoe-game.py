@@ -2,17 +2,27 @@
 W02 Prove: Developer - Solo Code Submission
 Author: Vadym Chemariev
 '''
+from tkinter import X
+
+
+x_player = input("Enter your x-Name: ")
+o_player = input("Enter your O-Name: ")
 
 def main():
     board = create_board()
-    player = next_player("")
-    
+    player = next_player("", x_player, o_player)
+
+        
     while not (has_winner(board) or is_a_draw(board)):
         display_board(board)
         make_move(player, board)
-        player = next_player(player)
+        player = next_player(player, x_player, o_player)
     display_board(board)
-    print("Good game. Thanks for playing!") 
+    if player == x_player:
+        print(f"Good game {x_player}. Thanks for playing!")
+    else:
+        print(f"Good game {o_player}. Thanks for playing!")
+
 
 def create_board():
     board = []
@@ -20,11 +30,11 @@ def create_board():
         board.append(square + 1)
     return board
 
-def next_player(current):
-    if current == "" or current == "o":
-        return "x"
-    elif current == "x":
-        return "o"
+def next_player(current, x_player, o_player):
+    if current == "" or current == o_player:
+        return x_player
+    elif current == x_player:
+        return o_player
 
 def display_board(board):
     print()
@@ -54,7 +64,12 @@ def make_move(player, board):
     while board[square-1] == "x" or board[square-1] == "o":
         print("Please, make another choice.")
         square = int(input(f"{player}'s turn to choose a position (1-9): "))
-    else: board[square - 1] = player
+    else: 
+        if player == x_player:
+            board[square - 1] = "x"
+        else: 
+            board[square - 1] = "o"
+
 
 
 
